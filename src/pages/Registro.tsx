@@ -95,7 +95,7 @@ export function Registro() {
                                             </Select>
                                             <Input placeholder="Email" />
                                             <Button type="submit">
-                                                Adcionar
+                                                Adicionar
                                             </Button>
                                         </form>
 

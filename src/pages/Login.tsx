@@ -1,55 +1,118 @@
-import { useState } from 'react'
 import logo from '../assets/LogoAssumtek.png'
-import { useNavigate } from 'react-router-dom';
 
-export function Login(){
+import { Button } from '@/components/ui/button';
 
-    const navigate = useNavigate();
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 
-    const [email, setEmail] = useState("")
-    const [senha, setSenha] = useState("")
-  
-    function handleRegister(e: any){
-      e.preventDefault()
-      console.log('Verificando no BD o seguinte login:\n Email', email, "\nSenha:", senha)
-      if (email== "santospefelipe@gmail.com" && senha === "123") {
-        navigate('/registro');
-      }else{
-        alert("Usuario incorreto D:")
-      }
-    }
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-    return(
-        <div className="container h-screen w-screen mx-auto flex items-center justify-center flex-col gap-8 max-w-sm p-3">
-        <div className="flex flex-col items-center justify-center mx-2">
-          <img src={logo} alt="Logo Assumtek" className='w-60' />
-        </div>
-  
-        <form 
-        className='flex flex-col gap-3.5 w-full'
-        onSubmit={handleRegister}
-        >
-          <input
-            placeholder='Email Address'
-            type="email"
-            value={email}
-            autoComplete="email"
-            onChange={(e) => setEmail(e.target.value)}
-            className='text-sm leading-6 text-branco bg-preto forced-none p-2 px-3.5 placeholder:text-cinza focus:pointer-events-none border-solid border-1 border rounded-lg'
-          />
-          <input
-            placeholder='Password'
-            type='password'
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            className='text-sm leading-6 text-branco bg-preto forced-none p-2 px-3.5 placeholder:text-cinza focus:ring-offset-branco border-solid border-1 border rounded-lg'
-          />
-  
-          <button 
-          type="submit"
-          className='bg-azul text-sm p-3 rounded-lg mt-2'
-          >Login</button>
-        </form>
+import { toast } from "@/components/ui/use-toast"
+
+import { useForm } from 'react-hook-form'
+
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod';
+
+
+const FormSchema = z.object({
+  email: z.string({
+      required_error: "Please select an email to display.",
+    })
+    .email(),
+  email2: z.string({
+    required_error: "Please select an email to display.",
+  })
+  .email(),
+})
+
+export function Login() {
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  })
+
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data)
+  }
+
+  return (
+    <div className="container h-screen w-screen mx-auto flex items-center justify-center flex-col gap-8 max-w-sm p-3">
+      <div className="flex flex-col items-center justify-center mx-2">
+        <img src={logo} alt="Logo Assumtek" className='w-60' />
       </div>
-    )
+
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a verified email to display" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="m@example.com">m@example.com</SelectItem>
+                    <SelectItem value="m@google.com">m@google.com</SelectItem>
+                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormDescription>
+                  You can manage email addresses in your{" "}
+
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email2"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a verified email to display" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="m@example.com">m@example.com</SelectItem>
+                    <SelectItem value="m@google.com">m@google.com</SelectItem>
+                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormDescription>
+                  You can manage email addresses in your{" "}
+
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+    </div>
+  )
 }
