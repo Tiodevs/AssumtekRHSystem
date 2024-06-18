@@ -67,8 +67,6 @@ type BDprops = {
 
 export function NewEvent({ BD, setBd }: BDprops) {
 
-    const [datee, setDatee] = React.useState()
-
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -145,8 +143,7 @@ export function NewEvent({ BD, setBd }: BDprops) {
                                                         <Button
                                                             variant={"outline"}
                                                             className={cn(
-                                                                "w-full justify-start text-left font-normal",
-                                                                !datee && "text-muted-foreground"
+                                                                "w-full justify-start text-left font-normal"
                                                             )}
                                                         >
                                                             <CalendarIcon className="mr-2 h-4 w-4" />
