@@ -2,7 +2,7 @@
 import { Header } from '../components/Header'
 import { Nav } from '../components/Nav'
 
-import { DollarSign } from 'lucide-react'
+import { Timer, CalendarClock, Calendar } from 'lucide-react'
 
 import {
     Card,
@@ -23,134 +23,53 @@ export function Dashboard() {
                     descricao="Panorama geral sobre seu progresso"
                 />
 
-                <div className='border-2 flex items-center justify-start flex-wrap border-cinzaNav p-4 h-auto min-h-96 mt-7 rounded-md'>
+                <div className='border-2 flex items-start justify-start flex-wrap border-cinzaNav p-4 h-auto min-h-96 mt-7 rounded-md'>
 
-                    <Card x-chunk="dashboard-01-chunk-0" className='w-3/12 h-1/5 m-2'>
+                    <Card x-chunk="dashboard-01-chunk-0" className='max-w-screen-xl h-1/5 m-2'>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">
-                                Total Revenue
+                            <CardTitle className="text-lg font-medium">
+                                Banco de horas
                             </CardTitle>
-                            <DollarSign className="h-4 w-4 text-muted-foreground" />
+                            <CalendarClock className="h-5 w-5 ml-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-muted-foreground">
-                                +20.1% from last month
+                            <div className="text-2xl font-bold text-green-700">+ 30 Horas</div>
+                            <p className="text-xs pt-2 text-muted-foreground">
+                                Caso duvidas falar copm RH
                             </p>
                         </CardContent>
                     </Card>
-                    <Card x-chunk="dashboard-01-chunk-0" className='w-3/12 h-1/5 m-2'>
+                    <Card x-chunk="dashboard-01-chunk-0" className='max-w-screen-xl h-1/5 m-2'>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">
-                                Total Revenue
+                            <CardTitle className="text-lg font-medium">
+                                Escala presencial
                             </CardTitle>
-                            <DollarSign className="h-4 w-4 text-muted-foreground" />
+                            <Calendar className="h-5 w-5 ml-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-muted-foreground">
-                                +20.1% from last month
+                            <div className="text-2xl font-bold text-cinza">Ter, qua e sab</div>
+                            <p className="text-xs pt-2 text-muted-foreground">
+                                Dias referentes a sua equipe
                             </p>
                         </CardContent>
                     </Card>
-                    <Card x-chunk="dashboard-01-chunk-0" className='w-1/4 h-1/5 m-2'>
+                    <Card x-chunk="dashboard-01-chunk-0" className='max-w-screen-xl h-1/5 m-2'>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">
-                                Total Revenue
+                            <CardTitle className="text-lg font-medium">
+                                Tempo trabalhado
                             </CardTitle>
-                            <DollarSign className="h-4 w-4 text-muted-foreground" />
+                            <Timer className="h-5 w-5 ml-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-muted-foreground">
-                                +20.1% from last month
+                            <div className="text-2xl font-bold text-cinza">10 Horas</div>
+                            <p className="text-xs pt-2 text-muted-foreground">
+                                Valor referente ao mês
                             </p>
                         </CardContent>
                     </Card>
-                    <Card x-chunk="dashboard-01-chunk-0" className='w-1/4 h-1/5 m-2'>
-                        <CardHeader className="flex flex-row items-start justify-start space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">
-                                Total Revenue
-                            </CardTitle>
-                            <DollarSign className="h-4 w-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-muted-foreground">
-                                +20.1% from last month
-                            </p>
-                        </CardContent>
-                    </Card>
-                    <Card x-chunk="dashboard-01-chunk-0" className='w-1/4 h-1/5 m-2'>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">
-                                Total Revenue
-                            </CardTitle>
-                            <DollarSign className="h-4 w-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-muted-foreground">
-                                +20.1% from last month
-                            </p>
-                        </CardContent>
-                    </Card>
-                    <Card x-chunk="dashboard-01-chunk-0" className='w-1/4 h-1/5 m-2'>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">
-                                Total Revenue
-                            </CardTitle>
-                            <DollarSign className="h-4 w-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-muted-foreground">
-                                +20.1% from last month
-                            </p>
-                        </CardContent>
-                    </Card>
-                    <Card x-chunk="dashboard-01-chunk-0" className='w-1/4 h-1/5 m-2'>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">
-                                Total Revenue
-                            </CardTitle>
-                            <DollarSign className="h-4 w-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-muted-foreground">
-                                +20.1% from last month
-                            </p>
-                        </CardContent>
-                    </Card>
-                    <Card x-chunk="dashboard-01-chunk-0" className='w-1/4 h-1/5 m-2'>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">
-                                Total Revenue
-                            </CardTitle>
-                            <DollarSign className="h-4 w-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-muted-foreground">
-                                +20.1% from last month
-                            </p>
-                        </CardContent>
-                    </Card>
-                    <Card x-chunk="dashboard-01-chunk-0" className='w-1/4 h-1/5 m-2'>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">
-                                Total Revenue
-                            </CardTitle>
-                            <DollarSign className="h-4 w-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">$45,231.89</div>
-                            <p className="text-xs text-muted-foreground">
-                                +20.1% from last month
-                            </p>
-                        </CardContent>
-                    </Card>
+                    
+                    
+                    
                     
                     
                 </div>

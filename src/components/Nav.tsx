@@ -1,4 +1,4 @@
-import { ClipboardPlusIcon, LayoutDashboard, CalendarDays, Bolt } from 'lucide-react'
+import { ClipboardPlusIcon, LayoutDashboard, CalendarDays, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import logoAssumtek from '../assets/LogoAssumtek.png'
 // import { ModeToggle } from './mode-toggle'
@@ -30,11 +30,11 @@ export function Nav() {
                     <Link to="/calendario">Calendario</Link>
                 </li>
                 </Link>
-                <Link to="/configuracao">
-                <li className={`flex space-x-4 p-3 ${location.pathname === "/configuracao" ? 'bg-azulNav rounded-r-lg text-azul text-bold border-0 border-l-4 border-l-azul' : ''
+                <Link to="/user">
+                <li className={`flex space-x-4 p-3 ${location.pathname === "/user" ? 'bg-azulNav rounded-r-lg text-azul text-bold border-0 border-l-4 border-l-azul' : ''
                     }`}>
-                    <Bolt color={location.pathname === "/configuracao" ? '#0F62FE' : "#FFFF"}/>
-                    <Link to="/configuracao">Configurações</Link>
+                    <User color={location.pathname === "/user" ? '#0F62FE' : "#FFFF"}/>
+                    <Link to="/user">User</Link>
                 </li>
                 </Link>
                 

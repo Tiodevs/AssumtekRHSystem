@@ -2,7 +2,7 @@
 import { Header } from '../components/Header'
 import { Nav } from '../components/Nav'
 
-export function Configuracao() {
+export function User() {
     return (
         <div className="flex min-h-screen  p-8">
 

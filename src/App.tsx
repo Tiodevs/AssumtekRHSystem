@@ -4,7 +4,7 @@ import { Login } from './pages/Login';
 import { Registro } from './pages/Registro';
 import { Dashboard } from './pages/Dashboard';
 import { Calendario } from './pages/Calendario';
-import { Configuracao } from './pages/Configuracao';
+import { User } from './pages/User';
 
 export function App() {
 
@@ -17,7 +17,7 @@ export function App() {
           <Route path="/registro" element={<Registro />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/calendario" element={<Calendario />} />
-          <Route path="/configuracao" element={<Configuracao />} />
+          <Route path="/user" element={<User />} />
         </Routes>
       </Router>
     </ThemeProvider>
