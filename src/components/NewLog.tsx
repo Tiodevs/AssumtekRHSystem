@@ -4,6 +4,7 @@ import { PlusCircle } from "lucide-react";
 // shadcn
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
     DialogHeader,
@@ -153,10 +154,12 @@ export function NewLog({ BD, setBd }: BDprops) {
                                     )}
                                 />
 
+                                {/* <DialogClose asChild> */}
 
                                 <Button type="submit">
                                     Adicionar
                                 </Button>
+                                {/* </DialogClose> */}
                             </form>
                         </Form>
 

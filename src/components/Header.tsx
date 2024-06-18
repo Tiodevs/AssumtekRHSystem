@@ -23,9 +23,9 @@ export function Header({ titulo, descricao }: HeaderI) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <div className='flex justify-between'>
+        <div className='flex justify-end xl:flex xl:justify-between '>
             {/* Titulos */}
-            <div>
+            <div className='hidden xl:block'>
                 <h2 className="text-2xl font-bold mb-1">{titulo}</h2>
                 <p className='text-sm'>{descricao}</p>
             </div>
@@ -45,8 +45,8 @@ export function Header({ titulo, descricao }: HeaderI) {
                     <DropdownMenuTrigger>
                         <div className='cursor-pointer flex p-2 pr-3 border-2 h-16 rounded-xl items-center justify-center space-x-2'>
                             <img src={fotoFelipe} className='w-11 h-11' alt="Foto perfil" />
-                            <div className='text-start'>
-                                <h1 className='font-bold text-base'>Felipe Santos</h1>
+                            <div className='text-start overflow-x-hidden'>
+                                <h1 className='font-bold text-base text-nowrap'>Felipe Santos</h1>
                                 <p className='font-light text-xs'>Programador</p>
                             </div>
                         </div>

@@ -58,7 +58,7 @@ export function Registro() {
                     descricao="Registo de pontos da equipe"
                 />
 
-                <div className='border-2 p-4 h-auto min-h-96 mt-7 rounded-md'>
+                <div className='border-2 p-4 h-auto min-h-96 mt-7 rounded-md max-md:w-screen '>
                     <div className="flex justify-end gap-3">
 
                         <NewLog

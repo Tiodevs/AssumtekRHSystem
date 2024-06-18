@@ -23,7 +23,7 @@ export function Dashboard() {
                     descricao="Panorama geral sobre seu progresso"
                 />
 
-                <div className='border-2 flex items-start justify-start flex-wrap border-cinzaNav p-4 h-auto min-h-96 mt-7 rounded-md'>
+                <div className='border-2 flex items-start justify-start flex-wrap border-cinzaNav p-4 h-auto min-h-96 max-md:w-screen mt-7 rounded-md'>
 
                     <Card x-chunk="dashboard-01-chunk-0" className='max-w-screen-xl h-1/5 m-2'>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

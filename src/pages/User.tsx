@@ -8,7 +8,7 @@ export function User() {
 
             <Nav/>
 
-            <main className="flex-1 px-8 py-4">
+            <main className="flex-1 px-8 py-4 max-md:w-screen">
                 <Header
                 titulo="Configuração"
                 descricao="Thema, infos e etc."

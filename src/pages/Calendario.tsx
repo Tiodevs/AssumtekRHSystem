@@ -14,7 +14,7 @@ export function Calendario() {
                 descricao="Feriados, escala e etc."
                 />
 
-                <div className='border-2 border-cinzaNav p-4 h-auto min-h-96 mt-7 rounded-md'>
+                <div className='border-2 border-cinzaNav p-4 h-auto max-md:w-screen min-h-96 mt-7 rounded-md'>
 
                 </div>
             </main>
