@@ -1,5 +1,5 @@
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { Header } from '../components/Header'
 import { Nav } from '../components/Nav'
 
@@ -18,7 +18,6 @@ import { NewEvent } from '@/components/NewEvent'
 
 export function Calendario() {
 
-    const buttonRef = useRef<HTMLButtonElement>(null);
 
     const today = new Date()
 
@@ -27,7 +26,7 @@ export function Calendario() {
         {
             titulo: "Reunião geral MKT",
             descricao: "14:50 PM - Presencial",
-            data: today.toLocaleDateString()
+            date: today.toLocaleDateString()
         }
     ])
 
@@ -48,8 +47,9 @@ export function Calendario() {
                         mode="single"
                         selected={date}
                         onSelect={setDate}
-                        className="rounded-md border"
+                        className="rounded-md border h-max"
                     />
+
                     <div className='w-full px-7 flex flex-col gap-4'>
                         <div className='flex justify-between'>
 
@@ -57,23 +57,22 @@ export function Calendario() {
                                 Calendario
                             </h1>
 
-                                <NewEvent
+                            <NewEvent
                                 BD={dbevent}
                                 setBd={setDbevent}
-                                date={date}
-                                setDate= {setDate}
-                                />
-                           
+                            />
+
+
                         </div>
 
                         {dbevent.map(event => (
                             <Card>
                                 <CardHeader>
                                     <CardTitle>{event.titulo}</CardTitle>
-                                    <CardDescription>{event.descricao}</CardDescription>
+                                    <CardDescription>{event.date}</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p>{event.data}</p>
+                                    <p>{event.descricao}</p>
                                 </CardContent>
                             </Card>
                         ))}
