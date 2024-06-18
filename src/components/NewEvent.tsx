@@ -29,8 +29,6 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // ESCOLHER DATA
-
-import * as React from "react"
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 
