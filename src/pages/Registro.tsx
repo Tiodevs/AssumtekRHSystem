@@ -13,26 +13,22 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { NewLog } from '@/components/NewLog';
+
 
 
 export function Registro() {
 
-    const [BD, setBd] = useState([])
-
-    useEffect(() => {
-        const DBStorage = localStorage.getItem('@DB')
-        if (DBStorage) {
-            setBd(JSON.parse(DBStorage))
+    const [BD, setBd] = useState([
+        {
+            nome: "Felipe Pereira dos Santos",
+            tipo: "Saida Pausa",
+            regime: "Presencial",
+            horario: "11:20 PM",
+            key: "aaaa",
         }
-    }, [])
-
-    useEffect(() => {
-        // Tranforma a lista em uma string usando JSON e salva os itens da lista no localStorage toda vez que a const tarefas for alterado
-        localStorage.setItem('@DB', JSON.stringify(BD))
-        console.log("Salvo")
-      }, [BD]);
+    ])
 
 
     return (
@@ -50,8 +46,8 @@ export function Registro() {
                     <div className="flex justify-end gap-3">
 
                         <NewLog
-                            BD={BD}
-                            setBd={setBd}
+                        BD={BD}
+                        setBd= {setBd}
                         />
 
                     </div>
