@@ -13,7 +13,7 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NewLog } from '@/components/NewLog';
 
 
@@ -31,6 +31,22 @@ export function Registro() {
     ])
 
 
+    useEffect(() => {
+        // Pegas as informaçoes salvas no localStorage e tranforma em lista denovo
+        const LogStorage = localStorage.getItem('@BD')
+        console.log(LogStorage)
+        if (LogStorage) {
+            setBd(JSON.parse(LogStorage))
+        }
+    }, [])
+
+    useEffect(() => {
+        // Tranforma a lista em uma string usando JSON e salva os itens da lista no localStorage toda vez que a const tarefas for alterado
+        localStorage.setItem('@BD', JSON.stringify(BD))
+    }, [BD]);
+
+
+
     return (
         <div className="flex min-h-screen  p-8">
 
@@ -46,8 +62,8 @@ export function Registro() {
                     <div className="flex justify-end gap-3">
 
                         <NewLog
-                        BD={BD}
-                        setBd= {setBd}
+                            BD={BD}
+                            setBd={setBd}
                         />
 
                     </div>
