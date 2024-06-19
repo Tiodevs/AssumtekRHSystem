@@ -24,6 +24,9 @@ export function Calendario() {
     const testday = new Date(2024, 5, 20)
 
     const [date, setDate] = useState<Date | undefined>(new Date())
+
+    const [infoEvent, setInfoEvent] = useState<string | string>("")
+
     const [dbevent, setDbevent] = useState([
         {
             titulo: "Reunião geral MKT",
@@ -35,8 +38,22 @@ export function Calendario() {
 
     var strikeThroughDates = dbevent.map(item => item.dateMark);
 
-    const handleDayClick = (day:any) => {
-        alert(`Day ${day.toLocaleDateString()}`);
+    const handleDayClick = (day: Date) => {
+        // Verificando se há eventos marcados para o dia clicado
+        const eventForDay = dbevent.find(event => {
+          // Comparando apenas ano, mês e dia
+          return (
+            event.dateMark.getFullYear() === day.getFullYear() &&
+            event.dateMark.getMonth() === day.getMonth() &&
+            event.dateMark.getDate() === day.getDate()
+          );
+        });
+    
+        if (eventForDay) {
+            setInfoEvent(`Evento encontrado: ${eventForDay.titulo} - ${eventForDay.descricao} - ${eventForDay.date}`);
+        } else {
+            setInfoEvent("Nenhum evento encontrado para este dia.");
+        }
       };
 
 
@@ -53,6 +70,8 @@ export function Calendario() {
 
                 <div className='flex border-2 border-cinzaNav p-4 h-auto max-md:w-screen min-h-96 mt-7 rounded-md'>
 
+                    <div>
+
                     <Calendar
                         modifiers={{
                             strikeThrough: strikeThroughDates,
@@ -66,6 +85,8 @@ export function Calendario() {
                         onSelect={setDate}
                         className="rounded-md border h-max"
                     />
+                    <p className='mt-4 ml-1 w-64'>{infoEvent === "" ? "Aperte em alguma data para verificar se existe um evento :D" : infoEvent}</p>
+                    </div>
 
                     <div className='w-full px-7 flex flex-col gap-4'>
                         <div className='flex justify-between'>
