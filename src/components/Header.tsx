@@ -55,7 +55,7 @@ export function Header({ titulo, descricao }: HeaderI) {
                         <DropdownMenuLabel>Sua conta</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         
-                        <Link to={"/"}>
+                        <Link to={"/user"}>
                             <DropdownMenuItem>
                                 Perfil
                             </DropdownMenuItem>

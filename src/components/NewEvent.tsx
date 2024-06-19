@@ -56,6 +56,7 @@ interface DBi {
     titulo: string,
     descricao: string,
     date: any,
+    dateMark: any,
 }
 
 type BDprops = {
@@ -79,7 +80,8 @@ export function NewEvent({ BD, setBd }: BDprops) {
         const newLog: DBi = {
             titulo: data.titulo,
             descricao: data.descricao,
-            date: data.date.toLocaleDateString()
+            date: data.date.toLocaleDateString(),
+            dateMark : data.date
         }
 
         setBd([...BD, newLog])

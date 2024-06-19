@@ -14,21 +14,31 @@ import {
 } from '@/components/ui/card'
 
 import { NewEvent } from '@/components/NewEvent'
+// import { array } from 'zod'
 
 
 export function Calendario() {
 
 
     const today = new Date()
+    const testday = new Date(2024, 5, 20)
 
     const [date, setDate] = useState<Date | undefined>(new Date())
     const [dbevent, setDbevent] = useState([
         {
             titulo: "Reunião geral MKT",
             descricao: "14:50 PM - Presencial",
-            date: today.toLocaleDateString()
+            date: today.toLocaleDateString(),
+            dateMark: testday
         }
     ])
+
+    var strikeThroughDates = dbevent.map(item => item.dateMark);
+
+    const handleDayClick = (day:any) => {
+        alert(`Day ${day.toLocaleDateString()}`);
+      };
+
 
     return (
         <div className="flex min-h-screen  p-8">
@@ -44,6 +54,13 @@ export function Calendario() {
                 <div className='flex border-2 border-cinzaNav p-4 h-auto max-md:w-screen min-h-96 mt-7 rounded-md'>
 
                     <Calendar
+                        modifiers={{
+                            strikeThrough: strikeThroughDates,
+                        }}
+                        modifiersClassNames={{
+                            strikeThrough: "border border-x-azul border-y-azul",
+                        }}
+                        onDayClick={handleDayClick}
                         mode="single"
                         selected={date}
                         onSelect={setDate}
@@ -66,7 +83,7 @@ export function Calendario() {
                         </div>
 
                         {dbevent.map(event => (
-                            <Card>
+                            <Card className={today.toLocaleDateString() === event.date ? 'border-x-zinc-200 border-y-zinc-200' : ''}>
                                 <CardHeader>
                                     <CardTitle>{event.titulo}</CardTitle>
                                     <CardDescription>{event.date}</CardDescription>
