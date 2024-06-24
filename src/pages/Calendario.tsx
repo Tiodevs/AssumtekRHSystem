@@ -37,6 +37,7 @@ export function Calendario() {
     ])
 
     var strikeThroughDates = dbevent.map(item => item.dateMark);
+    console.log("filtros:", strikeThroughDates)
 
     const handleDayClick = (day: Date) => {
         // Verificando se há eventos marcados para o dia clicado

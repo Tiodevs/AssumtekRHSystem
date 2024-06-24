@@ -41,15 +41,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 // Schema para validação
 const FormSchema = z.object({
     tipo: z.string({ message: "Preencha algo" }),
-    observacao: z.string().optional()
-    ,
+    regime: z.string({ message: "Preencha algo" }),
+    observacao: z.string().optional(),
 })
 
 interface DBi {
     nome: string,
     tipo: string,
     regime: string,
-    horario: string,
+    momento: string,
+    momentoMark: Date,
     key: string,
 }
 
@@ -65,16 +66,30 @@ export function NewLog({ BD, setBd }: BDprops) {
         resolver: zodResolver(FormSchema),
     })
 
+    const date = new Date()
+
     // const navigate = useNavigate();
 
     const getCurrentTimeFormatted = () => {
         const date = new Date();
-        return date.toLocaleTimeString('en-US', {
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true
+      
+        // Obter a data no formato brasileiro: "dd/mm/yy"
+        const formattedDate = date.toLocaleDateString('pt-BR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: '2-digit'
         });
-    };
+      
+        // Obter o horário no formato en-US (12 horas com AM/PM)
+        const formattedTime = date.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true
+        });
+      
+        // Combinar a data e o horário
+        return `${formattedDate} | ${formattedTime}`;
+      };
 
     const generateUniqueKey = () => {
         return `${Math.random().toString(36).substr(2, 9)}-${Date.now()}`;
@@ -86,8 +101,9 @@ export function NewLog({ BD, setBd }: BDprops) {
         const newLog:DBi = {
             nome: "Felipe Pereira dos Santos",
             tipo: data.tipo,
-            regime: "Presencial",
-            horario: getCurrentTimeFormatted(),
+            regime: data.regime,
+            momento: getCurrentTimeFormatted(),
+            momentoMark: date,
             key: generateUniqueKey(),
         }
 
@@ -132,6 +148,31 @@ export function NewLog({ BD, setBd }: BDprops) {
                                                         <SelectItem value="Entrada almoco">Entrada do almoço</SelectItem>
                                                         <SelectItem value="Saida almoco">Saida do almoço</SelectItem>
                                                         <SelectItem value="Saida geral">Saida geral</SelectItem>
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="regime"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                <FormControl>
+                                                    <SelectTrigger className="w-fullv">
+                                                        <SelectValue placeholder="Tipo de ponto" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        <SelectLabel>Tipo de ponto</SelectLabel>
+                                                        <SelectItem value="Presencial">Presencial</SelectItem>
+                                                        <SelectItem value="Home Office">Home Office</SelectItem>
+                                                        <SelectItem value="Saida pausa">Híbrido</SelectItem>
                                                     </SelectGroup>
                                                 </SelectContent>
                                             </Select>
