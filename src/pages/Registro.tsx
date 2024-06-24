@@ -25,34 +25,41 @@ interface Event {
     momento: string;
     momentoMark: Date;
     key: string;
-  }
+}
 
 
 
 export function Registro() {
 
-    const [BD, setBd] = useState([
-        {
-            nome: "Felipe Pereira dos Santos",
-            tipo: "Saida Pausa",
-            regime: "Presencial",
-            momento: "21/06/24 | 9:38 PM",
-            momentoMark: new Date(),
-            key: "aaaa",
-        }
-    ])
+    const [today, setToday] = useState<Date>(new Date())
+
+    const [BD, setBd] = useState([])
 
     const [BDFilter, setBDFilter] = useState<Event[]>([])
 
-    const [dataFilter, setDataFilter] = useState(new Date())
+    const [dataFilter, setDataFilter] = useState(today)
 
 
 
     useEffect(() => {
+
+        setToday(new Date())
+        
         // Pegas as informaçoes salvas no localStorage e tranforma em lista denovo
         const LogStorage = localStorage.getItem('@BD')
+
         if (LogStorage) {
-            setBd(JSON.parse(LogStorage))
+            // Converter a string de volta para um array de objetos
+            const parsedData = JSON.parse(LogStorage);
+
+            // Processar os dados para garantir que momentoMark seja um objeto Date
+            const processedData = parsedData.map((item: any) => ({
+                ...item,
+                momentoMark: new Date(item.momentoMark),
+            }));
+
+            // Atualizar o estado com os dados processados
+            setBd(processedData);
         }
         console.log("todo o BD", BD)
     }, [])
@@ -68,18 +75,18 @@ export function Registro() {
 
         const todayDateOnly = new Date(dataFilter.getFullYear(), dataFilter.getMonth(), dataFilter.getDate());
 
-        const parseDate = (date:any) => {
+        const parseDate = (date: any) => {
             return typeof date === 'string' ? new Date(date) : date;
-          };
-        
+        };
+
         const filteredEvents = BD.filter(event => {
 
             const eventDate = parseDate(event.momentoMark);
             if (eventDate instanceof Date) {
                 const eventDateOnly = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
                 return eventDateOnly.getTime() === todayDateOnly.getTime();
-              }
-              return false;
+            }
+            return false;
         });
 
         setBDFilter(filteredEvents)
@@ -128,7 +135,11 @@ export function Registro() {
                         </TableHeader>
                         <TableBody>
                             {BDFilter.length === 0 ? (
-                                <p>Esta vazio</p>
+                                <TableRow>
+                                    <TableCell>
+                                        Não temos nenhum registo nesta data
+                                    </TableCell>
+                                </TableRow>
                             ) : (
                                 BDFilter.map(user => (
                                     <TableRow key={user.key}>
