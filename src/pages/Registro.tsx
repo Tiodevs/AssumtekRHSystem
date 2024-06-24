@@ -18,9 +18,11 @@ import { NewLog } from '@/components/NewLog';
 import { FilterLog } from '@/components/FilterLog';
 
 import { Share } from 'lucide-react'
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable'
+// import jsPDF from 'jspdf';
+// import autoTable from 'jspdf-autotable'
 import { Button } from '@/components/ui/button';
+
+import { PDFDocument, rgb } from 'pdf-lib';
 
 // import { any } from 'zod';
 
@@ -52,45 +54,88 @@ export function Registro() {
 
     const [dataFilter, setDataFilter] = useState(today)
 
-    function handleExport() {
-        const doc = new jsPDF();
-        
-        doc.text("Seus registros do mês atual", 12, 10);
-        // Or use javascript directly:
+    const handleExport = async () => {
+        const pdfDoc = await PDFDocument.create();
+        const page = pdfDoc.addPage([600, 400]);
+        const { width, height } = page.getSize();
+        const fontSize = 12;
 
-        // Obter a data atual
+        // Definir as posições X para as colunas
+        const colXPositions = {
+            nome: 50,
+            tipo: 250,    // Ajuste para alinhar "Tipo" após a coluna "Nome" (que é maior)
+            regime: 350,  // Ajuste para alinhar "Regime" após "Tipo"
+            momento: 450  // Ajuste para alinhar "Momento" após "Regime"
+        };
+
+        // Cabeçalhos da Tabela
+        const headers = [
+            { label: "Nome", x: colXPositions.nome },
+            { label: "Tipo", x: colXPositions.tipo },
+            { label: "Regime", x: colXPositions.regime },
+            { label: "Momento", x: colXPositions.momento }
+        ];
+
+        // Filtrar os eventos do mês atual
         const currentDate = new Date();
-        const currentMonth = currentDate.getMonth(); // Mês atual (0-11)
-        const currentYear = currentDate.getFullYear(); // Ano atual
-
-        // Filtrar eventos do mês e ano atuais
+        const currentMonth = currentDate.getMonth();
+        const currentYear = currentDate.getFullYear();
         const filteredBD = BD.filter(event => {
             const eventDate = new Date(event.momentoMark);
             return eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
         });
 
-        // Cabeçalhos da tabela
-        const tableColumn = ["Nome", "Tipo", "Regime", "Momento"];
-        // Dados da tabela a partir dos eventos filtrados
-        const tableRows = filteredBD.map(event => [
-            event.nome,
-            event.tipo,
-            event.regime,
-            event.momento,
-            
-        ]);
-
-        // Adicionar tabela ao PDF usando autoTable
-        autoTable(doc, {
-            head: [tableColumn],
-            body: tableRows,
-            startY: 20, // Posição da tabela no eixo Y
-            margin: { top: 10 },
+        // Inserir Cabeçalhos
+        headers.forEach(header => {
+            page.drawText(header.label, {
+                x: header.x,
+                y: height - 50,
+                size: fontSize,
+                color: rgb(0, 0, 0),
+            });
         });
 
-        // Salvar o documento como um arquivo PDF
-        doc.save('eventos.pdf');
-    }
+        // Inserir Dados
+        filteredBD.forEach((event, rowIndex) => {
+            const yPosition = height - 70 - rowIndex * 20;
+            page.drawText(event.nome, {
+                x: colXPositions.nome, // A coluna "Nome" começa em 50
+                y: yPosition,
+                size: fontSize,
+                color: rgb(0, 0, 0),
+            });
+            page.drawText(event.tipo, {
+                x: colXPositions.tipo, // A coluna "Tipo" começa após a coluna "Nome"
+                y: yPosition,
+                size: fontSize,
+                color: rgb(0, 0, 0),
+            });
+            page.drawText(event.regime, {
+                x: colXPositions.regime, // A coluna "Regime" começa após a coluna "Tipo"
+                y: yPosition,
+                size: fontSize,
+                color: rgb(0, 0, 0),
+            });
+            page.drawText(event.momento, {
+                x: colXPositions.momento, // A coluna "Momento" começa após a coluna "Regime"
+                y: yPosition,
+                size: fontSize,
+                color: rgb(0, 0, 0),
+            });
+        });
+
+        // Salvar PDF e fazer download
+        const pdfBytes = await pdfDoc.save();
+
+        // Criar um link e clicar nele programaticamente para baixar o arquivo
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'eventos_mes_atual.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
     useEffect(() => {
         // Pegas as informaçoes salvas no localStorage e tranforma em lista denovo
