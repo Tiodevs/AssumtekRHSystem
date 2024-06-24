@@ -67,11 +67,6 @@ export function Dashboard() {
                             </p>
                         </CardContent>
                     </Card>
-                    
-                    
-                    
-                    
-                    
                 </div>
             </main>
         </div>

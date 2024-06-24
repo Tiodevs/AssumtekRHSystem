@@ -16,6 +16,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useState, useEffect } from 'react';
 import { NewLog } from '@/components/NewLog';
 import { FilterLog } from '@/components/FilterLog';
+
+import { Share } from 'lucide-react'
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'
+import { Button } from '@/components/ui/button';
+
 // import { any } from 'zod';
 
 interface Event {
@@ -34,7 +40,7 @@ export function Registro() {
 
     const [BD, setBd] = useState([
         {
-            nome: "Felipe Pereira dos Santos",
+            nome: "teste",
             tipo: "Saida Pausa",
             regime: "Presencial",
             momento: "21/06/24 | 9:38 PM",
@@ -46,7 +52,45 @@ export function Registro() {
 
     const [dataFilter, setDataFilter] = useState(today)
 
+    function handleExport() {
+        const doc = new jsPDF();
+        
+        doc.text("Seus registros do mês atual", 12, 10);
+        // Or use javascript directly:
 
+        // Obter a data atual
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth(); // Mês atual (0-11)
+        const currentYear = currentDate.getFullYear(); // Ano atual
+
+        // Filtrar eventos do mês e ano atuais
+        const filteredBD = BD.filter(event => {
+            const eventDate = new Date(event.momentoMark);
+            return eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
+        });
+
+        // Cabeçalhos da tabela
+        const tableColumn = ["Nome", "Tipo", "Regime", "Momento"];
+        // Dados da tabela a partir dos eventos filtrados
+        const tableRows = filteredBD.map(event => [
+            event.nome,
+            event.tipo,
+            event.regime,
+            event.momento,
+            
+        ]);
+
+        // Adicionar tabela ao PDF usando autoTable
+        autoTable(doc, {
+            head: [tableColumn],
+            body: tableRows,
+            startY: 20, // Posição da tabela no eixo Y
+            margin: { top: 10 },
+        });
+
+        // Salvar o documento como um arquivo PDF
+        doc.save('eventos.pdf');
+    }
 
     useEffect(() => {
         // Pegas as informaçoes salvas no localStorage e tranforma em lista denovo
@@ -128,7 +172,10 @@ export function Registro() {
                             setDataFilter={setDataFilter}
                         />
 
-
+                        <Button onClick={handleExport} variant={'outline'} className=' py-4'>
+                            <Share className="h-5 w-5 mr-4 text-muted-foreground" />
+                            Exportar registros do mês
+                        </Button>
 
                     </div>
                     <Table className='mt-3'>
