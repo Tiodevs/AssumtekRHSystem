@@ -24,7 +24,6 @@ interface Event {
     regime: string;
     momento: string;
     momentoMark: Date;
-    key: string;
 }
 
 
@@ -33,7 +32,15 @@ export function Registro() {
 
     const [today, setToday] = useState<Date>(new Date())
 
-    const [BD, setBd] = useState([])
+    const [BD, setBd] = useState([
+        {
+            nome: "Felipe Pereira dos Santos",
+            tipo: "Saida Pausa",
+            regime: "Presencial",
+            momento: "21/06/24 | 9:38 PM",
+            momentoMark: new Date("2020-06-10T04:26:05.717Z")
+        }
+    ])
 
     const [BDFilter, setBDFilter] = useState<Event[]>([])
 
@@ -42,9 +49,6 @@ export function Registro() {
 
 
     useEffect(() => {
-
-        setToday(new Date())
-        
         // Pegas as informaçoes salvas no localStorage e tranforma em lista denovo
         const LogStorage = localStorage.getItem('@BD')
 
@@ -62,7 +66,10 @@ export function Registro() {
             setBd(processedData);
         }
         console.log("todo o BD", BD)
+
+        setToday(new Date())
     }, [])
+
 
     useEffect(() => {
         // Tranforma a lista em uma string usando JSON e salva os itens da lista no localStorage toda vez que a const tarefas for alterado
@@ -141,8 +148,8 @@ export function Registro() {
                                     </TableCell>
                                 </TableRow>
                             ) : (
-                                BDFilter.map(user => (
-                                    <TableRow key={user.key}>
+                                BDFilter.map((user, index) => (
+                                    <TableRow key={index}>
                                         <TableCell className="font-medium flex items-center gap-3">
                                             <Avatar className='w-8 h-8'>
                                                 <AvatarImage src="https://github.com/Tiodevs.png" />
