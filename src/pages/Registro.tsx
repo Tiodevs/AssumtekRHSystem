@@ -57,7 +57,7 @@ export function Registro() {
     const handleExport = async () => {
         const pdfDoc = await PDFDocument.create();
         const page = pdfDoc.addPage([600, 400]);
-        const { width, height } = page.getSize();
+        const { height } = page.getSize();
         const fontSize = 12;
 
         // Definir as posições X para as colunas
