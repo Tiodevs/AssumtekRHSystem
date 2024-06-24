@@ -60,8 +60,6 @@ type BDprops = {
 
 export function FilterLog({ BD, setDataFilter }: BDprops) {
 
-    console.log("BD recebido pelo filtro: ", BD)
-
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -77,12 +75,11 @@ export function FilterLog({ BD, setDataFilter }: BDprops) {
             dateMark: data.date
         }
 
-        setDataFilter(newFilter)
+        setDataFilter(newFilter.dateMark)
 
     }
 
     var strikeThroughDates = BD.map((item: { momentoMark: any; }) => item.momentoMark);
-    console.log("filtros:", strikeThroughDates)
 
     return (
         <Dialog>

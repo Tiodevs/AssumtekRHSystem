@@ -18,11 +18,18 @@ import { NewLog } from '@/components/NewLog';
 import { FilterLog } from '@/components/FilterLog';
 // import { any } from 'zod';
 
+interface Event {
+    nome: string;
+    tipo: string;
+    regime: string;
+    momento: string;
+    momentoMark: Date;
+    key: string;
+  }
+
 
 
 export function Registro() {
-
-    const [today, setToday] = useState<Date>(new Date())
 
     const [BD, setBd] = useState([
         {
@@ -30,25 +37,25 @@ export function Registro() {
             tipo: "Saida Pausa",
             regime: "Presencial",
             momento: "21/06/24 | 9:38 PM",
-            momentoMark: today,
+            momentoMark: new Date(),
             key: "aaaa",
         }
     ])
 
-    const [dataFilter, setDataFilter] = useState(today)
+    const [BDFilter, setBDFilter] = useState<Event[]>([])
+
+    const [dataFilter, setDataFilter] = useState(new Date())
+
+
 
     useEffect(() => {
-        setToday(new Date())
-        console.log("data atual: ", today)
         // Pegas as informaçoes salvas no localStorage e tranforma em lista denovo
         const LogStorage = localStorage.getItem('@BD')
-        console.log(LogStorage)
         if (LogStorage) {
             setBd(JSON.parse(LogStorage))
         }
+        console.log("todo o BD", BD)
     }, [])
-
-
 
     useEffect(() => {
         // Tranforma a lista em uma string usando JSON e salva os itens da lista no localStorage toda vez que a const tarefas for alterado
@@ -56,7 +63,29 @@ export function Registro() {
     }, [BD]);
 
     useEffect(() => {
-        console.log("Data filter atual", dataFilter)
+
+        console.log("Filtro", dataFilter)
+
+        const todayDateOnly = new Date(dataFilter.getFullYear(), dataFilter.getMonth(), dataFilter.getDate());
+
+        const parseDate = (date:any) => {
+            return typeof date === 'string' ? new Date(date) : date;
+          };
+        
+        const filteredEvents = BD.filter(event => {
+
+            const eventDate = parseDate(event.momentoMark);
+            if (eventDate instanceof Date) {
+                const eventDateOnly = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+                return eventDateOnly.getTime() === todayDateOnly.getTime();
+              }
+              return false;
+        });
+
+        setBDFilter(filteredEvents)
+
+        console.log("BD filtrado", BDFilter)
+
     }, [dataFilter]);
 
 
@@ -98,10 +127,10 @@ export function Registro() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {BD.length === 0 ? (
+                            {BDFilter.length === 0 ? (
                                 <p>Esta vazio</p>
                             ) : (
-                                BD.map(user => (
+                                BDFilter.map(user => (
                                     <TableRow key={user.key}>
                                         <TableCell className="font-medium flex items-center gap-3">
                                             <Avatar className='w-8 h-8'>
