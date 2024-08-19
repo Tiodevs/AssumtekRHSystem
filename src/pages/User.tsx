@@ -15,13 +15,13 @@ export function User() {
 
             <Nav />
 
-            <main className="flex-1 px-8 py-4 max-md:w-screen">
+            <main className="flex-1 px-8 py-4 max-w-full">
                 <Header
                     titulo="User"
                     descricao="Suas informações e documentos."
                 />
 
-                <div className='border-2 border-cinzaNav p-6 h-auto min-h-96 mt-7 rounded-md'>
+                <div className='border-2 p-4 h-auto min-h-96 mt-7 rounded-md max-md:w-screen '>
                     <div className='flex gap-5 items-center mb-5'>
                         <Avatar className='w-32 h-32 rounded-xl'>
                             <AvatarImage src="https://github.com/Tiodevs.png" />

@@ -61,7 +61,7 @@ export function Registro() {
         const fontSize = 12;
 
         // Definir as posições X para as colunas
-        const colXPositions = {
+        const colXPositions  = {
             nome: 50,
             tipo: 250,    // Ajuste para alinhar "Tipo" após a coluna "Nome" (que é maior)
             regime: 350,  // Ajuste para alinhar "Regime" após "Tipo"
